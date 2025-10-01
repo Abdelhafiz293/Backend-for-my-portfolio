@@ -95,3 +95,7 @@ Thumbs.db
 
 # DynamoDB Local files
 .dynamodb/
+
+.vercel
+
+config.env
