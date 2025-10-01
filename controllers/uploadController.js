@@ -10,16 +10,14 @@ exports.uploadImage = (req, res) => {
       });
     }
 
-    // Create the image URL that can be accessed from frontend
-    const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${
-      req.file.filename
-    }`;
+    // With Cloudinary, the file URL is directly available
+    const imageUrl = req.file.path; // Cloudinary provides the full URL in req.file.path
 
     res.status(200).json({
       success: true,
       message: "Image uploaded successfully",
       imageUrl: imageUrl,
-      filename: req.file.filename,
+      publicId: req.file.filename, // Cloudinary public ID
     });
   } catch (error) {
     res.status(500).json({

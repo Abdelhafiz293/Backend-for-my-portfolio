@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/auth");
-const upload = require("../middlewares/upload");
+const upload = require("../middlewares/cloudinary-upload"); // Use Cloudinary upload
 const {
   getAbout,
   createOrUpdateAbout,

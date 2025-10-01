@@ -70,10 +70,8 @@ exports.updateAboutImage = async (req, res) => {
       });
     }
 
-    // Create the image URL
-    const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${
-      req.file.filename
-    }`;
+    // With Cloudinary, the file URL is directly available
+    const imageUrl = req.file.path; // Cloudinary provides the full URL
 
     // Find and update the about document
     let about = await About.findOne();
