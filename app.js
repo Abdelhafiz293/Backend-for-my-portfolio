@@ -1,0 +1,29 @@
+const express = require("express");
+const cors = require("cors");
+const authRoutes = require("./routes/Auth");
+const uploadRoutes = require("./routes/Upload");
+const projectRoutes = require("./routes/Projects");
+const skillsRoutes = require("./routes/Skills");
+const contactRoutes = require("./routes/Contact");
+const aboutRoutes = require("./routes/about");
+
+require("dotenv").config();
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Serve static files from uploads directory
+app.use("/uploads", express.static("uploads"));
+
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api", uploadRoutes);
+app.use("/api/projects", projectRoutes);
+app.use("/api/skills", skillsRoutes);
+app.use("/api/contact", contactRoutes);
+app.use("/api/about", aboutRoutes);
+
+module.exports = app;
