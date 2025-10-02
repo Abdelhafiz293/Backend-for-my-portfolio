@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
   res.json({
     message: "Backend API is running successfully!",
     status: "online",
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 
