@@ -15,24 +15,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Add response time header
-app.use((req, res, next) => {
-  req.startTime = Date.now();
-  res.on("finish", () => {
-    const duration = Date.now() - req.startTime;
-    console.log(`${req.method} ${req.url} - ${res.statusCode} - ${duration}ms`);
-  });
-  next();
-});
-
-// Add cache headers for static content
-app.use((req, res, next) => {
-  if (req.url.includes("/api/")) {
-    res.set("Cache-Control", "public, max-age=300"); // 5 minute cache
-  }
-  next();
-});
-
 // Root route for health check
 app.get("/", (req, res) => {
   res.json({
@@ -40,32 +22,6 @@ app.get("/", (req, res) => {
     status: "online",
     timestamp: new Date().toISOString(),
   });
-});
-
-// Database connection test endpoint
-app.get("/api/test-db", async (req, res) => {
-  try {
-    const mongoose = require("mongoose");
-    const connectionState = mongoose.connection.readyState;
-    const states = ['disconnected', 'connected', 'connecting', 'disconnecting'];
-    
-    res.json({
-      success: true,
-      database: {
-        status: states[connectionState],
-        readyState: connectionState,
-        host: mongoose.connection.host,
-        name: mongoose.connection.name
-      },
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message,
-      timestamp: new Date().toISOString(),
-    });
-  }
 });
 
 // Routes
