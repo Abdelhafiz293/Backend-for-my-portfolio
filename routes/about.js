@@ -18,8 +18,8 @@ router.post("/", auth, createOrUpdateAbout);
 // Update about information (protected route)
 router.put("/", auth, createOrUpdateAbout);
 
-// Upload profile image for about (protected route)
-router.post("/upload-image", auth, upload.single("image"), updateAboutImage);
+// Upload profile image for about (protected route) - Temporarily disabled
+// router.post("/upload-image", auth, upload.single("image"), updateAboutImage);
 
 // Delete about information (protected route)
 router.delete("/", auth, deleteAbout);
