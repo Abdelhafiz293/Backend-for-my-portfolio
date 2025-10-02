@@ -15,6 +15,24 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Add response time header
+app.use((req, res, next) => {
+  req.startTime = Date.now();
+  res.on('finish', () => {
+    const duration = Date.now() - req.startTime;
+    console.log(`${req.method} ${req.url} - ${res.statusCode} - ${duration}ms`);
+  });
+  next();
+});
+
+// Add cache headers for static content
+app.use((req, res, next) => {
+  if (req.url.includes('/api/')) {
+    res.set('Cache-Control', 'public, max-age=300'); // 5 minute cache
+  }
+  next();
+});
+
 // Root route for health check
 app.get("/", (req, res) => {
   res.json({
