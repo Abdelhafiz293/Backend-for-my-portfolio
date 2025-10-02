@@ -15,6 +15,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Root route for health check
+app.get("/", (req, res) => {
+  res.json({
+    message: "Backend API is running successfully!",
+    status: "online",
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api", uploadRoutes);
