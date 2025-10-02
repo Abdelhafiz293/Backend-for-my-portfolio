@@ -3,13 +3,16 @@ const Skills = require("../models/skills");
 // Get all skills (public route)
 exports.getAllSkills = async (req, res) => {
   try {
+    console.log("Fetching skills from database...");
     const allSkills = await Skills.find();
+    console.log(`✅ Found ${allSkills.length} skills`);
     res.status(200).json({
       success: true,
       count: allSkills.length,
       skills: allSkills,
     });
   } catch (error) {
+    console.error("❌ Skills fetch error:", error.message);
     res.status(500).json({
       success: false,
       message: error.message,

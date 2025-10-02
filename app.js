@@ -42,6 +42,32 @@ app.get("/", (req, res) => {
   });
 });
 
+// Database connection test endpoint
+app.get("/api/test-db", async (req, res) => {
+  try {
+    const mongoose = require("mongoose");
+    const connectionState = mongoose.connection.readyState;
+    const states = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+    
+    res.json({
+      success: true,
+      database: {
+        status: states[connectionState],
+        readyState: connectionState,
+        host: mongoose.connection.host,
+        name: mongoose.connection.name
+      },
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    });
+  }
+});
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api", uploadRoutes); // Re-enabled with Cloudinary storage
