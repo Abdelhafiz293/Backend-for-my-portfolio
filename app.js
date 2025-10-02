@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/auth", authRoutes);
-// app.use("/api", uploadRoutes); // Temporarily disabled until Cloudinary is configured
+app.use("/api", uploadRoutes); // Re-enabled with Cloudinary storage
 app.use("/api/projects", projectRoutes);
 app.use("/api/skills", skillsRoutes);
 app.use("/api/contact", contactRoutes);
