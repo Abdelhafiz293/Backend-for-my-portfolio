@@ -25,6 +25,21 @@ app.get("/", (req, res) => {
 });
 
 // Routes
+app.get("/", (req, res) => {
+  res.json({
+    message: "Welcome to Portfolio Backend API",
+    version: "1.0.0",
+    endpoints: {
+      auth: "/api/auth",
+      projects: "/api/projects",
+      skills: "/api/skills",
+      contact: "/api/contact",
+      about: "/api/about",
+      upload: "/api/upload",
+    },
+  });
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api", uploadRoutes); // Re-enabled with Cloudinary storage
 app.use("/api/projects", projectRoutes);
